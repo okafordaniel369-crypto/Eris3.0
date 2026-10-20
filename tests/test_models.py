@@ -299,6 +299,14 @@ class ActionAndReplyTests(unittest.TestCase):
             m.Reply("Hello!", "not an action")
 
 
+class EnumAdditionTests(unittest.TestCase):
+    def test_identity_question_and_self_reference_exist(self):
+        self.assertIn("IDENTITY_QUESTION", m.Intent.__members__)
+        self.assertIn("SELF_REFERENCE", m.EntityKind.__members__)
+        entity = m.Entity("creator", m.EntityKind.SELF_REFERENCE)
+        self.assertIsNone(entity.span)
+
+
 class IndependenceTests(unittest.TestCase):
     def test_models_imports_only_the_standard_library(self):
         path = os.path.join(ROOT, "conversation", "models.py")
